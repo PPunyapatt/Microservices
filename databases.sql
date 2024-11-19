@@ -8,14 +8,14 @@ CREATE TABLE customers (
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
+    price float NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE stocks (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id int NOT NULL,
+    product_id INT NOT NULL,
     available_quantity INT NOT NULL,
     reserved_quantity INT NOT NULL,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -26,7 +26,7 @@ CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT NOT NULL,
     `status` VARCHAR(255) NOT NULL,
-    total_price DECIMAL(10, 2) NOT NULL,
+    total_price float NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
@@ -37,7 +37,7 @@ CREATE TABLE order_items (
     order_id int NOT NULL,
     product_id int NOT NULL,
     quantity INT NOT NULL,
-    price_per_unit DECIMAL(10, 2) NOT NULL,
+    price_per_unit float NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );

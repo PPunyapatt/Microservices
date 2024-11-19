@@ -1,6 +1,7 @@
 package usecases
 
 import (
+	"fmt"
 	"order/adapters/queue"
 	"order/entities"
 )
@@ -17,15 +18,16 @@ func NewOrderUsecase(orderRepo entities.OrderRepository, rabbitMQ queue.RabbitMQ
 	}
 }
 
-func (o *OrderUsecase) CreateOrder(order entities.Order, orderItem entities.OrderItem) error {
-	if err := o.orderRepo.CreateOrder(order); err != nil {
-		return err
-	}
+func (o *OrderUsecase) CreateOrder(order *entities.Order, orderItem []*entities.OrderItem) error {
+	// if err := o.orderRepo.CreateOrder(order, orderItem); err != nil {
+	// 	return err
+	// }
 
 	err := o.rabbitMQ.Publish("topic.stock.reserved", order)
 	if err != nil {
 		return err
 	}
+	fmt.Println("Publish success")
 	return nil
 }
 

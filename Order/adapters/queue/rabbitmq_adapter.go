@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"order/entities"
 	"time"
@@ -39,7 +40,7 @@ func (r *rabbitMQAdapter) Publish(exchangeName string, eventPayload interface{})
 	if err != nil {
 		return err
 	}
-
+	fmt.Println("eventPayload: ", eventPayload)
 	eventJson, err := json.Marshal(eventPayload)
 	if err != nil {
 		return errors.New("error converting struct to json")

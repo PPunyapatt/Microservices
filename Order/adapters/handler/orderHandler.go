@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"order/entities"
 
@@ -17,11 +18,14 @@ func NewOrderHandler(svc entities.OrderUsecase) *OrderHandler {
 
 func (o *OrderHandler) CreateOrder(c echo.Context) error {
 	var orderRequest *entities.OrderRequest
+	fmt.Println("start")
 	if err := c.Bind(&orderRequest); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 
-	err := o.svc.CreateOrder(orderRequest.Order, orderRequest.OrderItem)
+	// fmt.Println("orderRequest: ", *orderRequest)
+
+	err := o.svc.CreateOrder(&orderRequest.Order, orderRequest.OrderItems)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
