@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "Consumer"
+		},
+		{
+			"path": "Order"
+		},
+		{
+			"path": "Stock"
+		}
+	],
+	"settings": {}
+}

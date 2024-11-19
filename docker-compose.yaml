@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    restart: always
+    container_name: mysql-service
+    environment:
+      MYSQL_ROOT_PASSWORD: "rabbitmq"
+      MYSQL_DATABASE: "ecommerce"
+    ports:
+      - 4433:3306
+    volumes:
+      - ./databases.sql:/docker-entrypoint-initdb.d/schema.sql
